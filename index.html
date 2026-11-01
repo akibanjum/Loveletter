@@ -153,6 +153,7 @@ iframe{display:block}
 #s6 .btns{margin-bottom:14px}
 #gl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.ph{position:relative;width:64px;height:64px;padding:0;border-radius:10px;overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover}.ph b{position:absolute;right:2px;top:2px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;font-size:13px;line-height:20px}
 #mp{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(320px,calc(100vw - 20px));z-index:41}
+.mrow .btn{padding:11px 6px;font-size:13px}
 </style>
 </head>
 <body>
@@ -174,7 +175,9 @@ iframe{display:block}
   <label class="field"><span>Your message (empty = default)</span><textarea id="msg" placeholder="Write from the heart…"></textarea></label>
   <label class="field"><span>Reasons I love you (optional)</span><textarea id="rs" placeholder="One reason per line"></textarea><small>Write as many as you like (up to 30). Each time they touch a card, a random reason appears.</small></label>
   <div class="field"><span>Photos (optional, up to 8)</span><input id="ph" type="file" accept="image/*" multiple><div id="gl"></div><textarea id="gcap" placeholder="Captions, one per line, same order as the photos"></textarea><small id="upS" role="status">Photos are uploaded to your Cloudinary account.</small></div>
-  <div class="field"><span>Song (optional): Spotify or YouTube link</span><input id="mu" type="url" inputmode="url" placeholder="https://open.spotify.com/track/… or https://youtu.be/…"><small id="muS" role="status">YouTube starts by itself. Spotify needs one tap on play (full song only if they are logged in to Spotify).</small></div>
+  <div class="field"><span>Song</span><div class="btns mrow"><button type="button" class="btn ghost" id="mSp">🟢 Spotify</button><button type="button" class="btn ghost" id="mYt">▶️ YouTube</button></div><small id="muS" role="status"></small>
+    <div class="btns mrow" style="margin-top:8px"><button type="button" class="btn ghost" id="mPaste">📋 Paste copied link</button><button type="button" class="btn ghost" id="mDef">Default song</button><button type="button" class="btn ghost" id="mNone">No song</button></div>
+    <input id="mu" type="url" inputmode="url" placeholder="…or paste a Spotify / YouTube link here" style="margin-top:8px"><small>Pick a song on Spotify or YouTube, tap Share → Copy link, then come back here. The link is picked up automatically (or tap “Paste copied link”).</small></div>
   <label class="field"><span>My promises (optional)</span><textarea id="pr" placeholder="One promise per line"></textarea><small>Up to 12. They appear one by one on their own page.</small></label>
   <label class="field"><span>Mini quiz (optional)</span><textarea id="zs" placeholder="One question per line:&#10;Where did we first meet? | At school | Online | At a party"></textarea><small>Format: question | right answer | wrong answer | wrong answer. Add up to 12; 4 random ones are asked.</small></label>
   <div class="field"><span>Save the date (optional)</span><div class="row"><input id="d" type="date" aria-label="Date"><input id="dt" placeholder="Title e.g. Our first date"></div></div>
@@ -212,7 +215,7 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* ===== Cloudinary: fill these two once (see the guide), then save the file ===== */
 const CLOUD_NAME = "rtsk9llp";      // e.g. "dxyz123abc"
 const UPLOAD_PRESET = "loveletter";   // name of your UNSIGNED upload preset
-let GAL = [];
+let GAL = [], SONG = "y:2Vv-BfVoq4g";  // default song: Ed Sheeran - Perfect (YouTube)
 const musicRef = u => { u = (u || "").trim(); let m;
   if ((m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|music\.youtube\.com\/watch\?(?:.*&)?v=)([\w-]{11})/))) return "y:" + m[1];
   if ((m = u.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?(track|album|playlist|episode)\/(\w+)/))) return "s:" + m[1] + "/" + m[2];
@@ -319,7 +322,7 @@ function collect() {
   return { to: $("to").value.trim(), from: $("from").value.trim(), wa: $("cc").value + $("wa").value.replace(/\D/g, "").replace(/^0+/, ""), l: $("lang").value, t: theme,
     m: $("msg").value.trim(), q: $("q").value.trim(), r: lines("rs").slice(0, 30),
     z: lines("zs").map(s => s.split("|").map(p => p.trim()).filter(Boolean)).filter(a => a.length >= 3).slice(0, 12),
-    d: $("d").value, dt: $("dt").value.trim(), p: $("paper").value, e: $("eff").value, pr: lines("pr").slice(0, 12), n: $("nt").checked ? 1 : "", g: GAL.slice(), gc: $("gcap").value.split("\n").map(t => t.trim()).slice(0, GAL.length), a: musicRef($("mu").value) };
+    d: $("d").value, dt: $("dt").value.trim(), p: $("paper").value, e: $("eff").value, pr: lines("pr").slice(0, 12), n: $("nt").checked ? 1 : "", g: GAL.slice(), gc: $("gcap").value.split("\n").map(t => t.trim()).slice(0, GAL.length), a: SONG };
 }
 const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 const dec = s => JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g, "+").replace(/_/g, "/")))));
@@ -355,7 +358,6 @@ $("make").onclick = async () => {
   const c = collect();
   if (!c.to) return $("err").textContent = "Add the name of the person this letter is for.";
   if ($("wa").value.replace(/\D/g, "").length < 6) return $("err").textContent = "Add your WhatsApp number so their reply reaches you.";
-  if ($("mu").value.trim() && !musicRef($("mu").value)) return $("err").textContent = "The song link isn’t recognised. Use a Spotify or YouTube link, or clear that box.";
   $("err").textContent = "";
   const link = base() + "?" + await pack(c);
   $("len").textContent = `Link length: ${link.length} characters` + (link.length > 2000 ? ". Very long: some apps may cut it. Try a shorter message or a link shortener." : "");
@@ -383,7 +385,17 @@ $("ph").onchange = async e => { const fs = [...e.target.files].slice(0, 8 - GAL.
   for (const f of fs) { $("upS").textContent = `Uploading photo ${GAL.length + 1}…`;
     try { GAL.push(await up(await shrink(f), "image")); drawGal(); } catch (x) { $("upS").textContent = "Upload failed: " + x.message; return; } }
   $("upS").textContent = `${GAL.length} photo(s) ready ✓`; live(); };
-$("mu").addEventListener("input", () => { const v = $("mu").value.trim(); $("muS").textContent = !v ? "" : musicRef(v) ? "Song link OK ✓" : "Not recognised. Use a Spotify (track, album, playlist) or YouTube video link."; });
+const songTxt = () => { $("muS").textContent = !SONG ? "No song" : SONG === "y:2Vv-BfVoq4g" ? "Default: Ed Sheeran – Perfect (YouTube)" : "Your song: " + (SONG[0] === "y" ? "YouTube video" : "Spotify " + SONG.slice(2).split("/")[0]) + " ✓"; };
+const setSong = u => { const r = musicRef(u); if (!r) return false; SONG = r; $("mu").value = ""; songTxt(); live(); return true; };
+let pend = false;
+const tryPaste = async () => { try { if (!setSong(await navigator.clipboard.readText())) $("muS").textContent = "No Spotify/YouTube link found in your clipboard. Copy a song link first."; } catch { $("muS").textContent = "Couldn’t read the clipboard. Paste the link in the box below."; } };
+const goSite = u => { pend = true; open(u, "_blank", "noopener"); };
+$("mSp").onclick = () => goSite("https://open.spotify.com/search"); $("mYt").onclick = () => goSite("https://www.youtube.com/");
+$("mPaste").onclick = () => { pend = false; tryPaste(); };
+$("mDef").onclick = () => { SONG = "y:2Vv-BfVoq4g"; songTxt(); live(); }; $("mNone").onclick = () => { SONG = ""; songTxt(); live(); };
+$("mu").addEventListener("input", () => { const v = $("mu").value.trim(); if (v && !setSong(v)) $("muS").textContent = "Not recognised. Use a Spotify (track, album, playlist) or YouTube video link."; });
+document.addEventListener("visibilitychange", () => { if (!document.hidden && pend) { pend = false; tryPaste(); } });
+songTxt();
 $("eff").onchange = () => { document.documentElement.dataset.e = $("eff").value; };
 let pt; const live = () => { if ($("pvw").classList.contains("hidden")) return; clearTimeout(pt); pt = setTimeout(async () => { const c = collect(); c.to = c.to || "Maya"; if (c.wa.length < 7) c.wa = "0"; const cfg = "<scr" + "ipt>window.__PV=" + JSON.stringify(c).replace(/</g, "\\u003c") + "</scr" + "ipt></head>"; $("pvf").srcdoc = SRC.replace("</head>", () => cfg); }, 700); };
 $("gen").addEventListener("input", live); $("gen").addEventListener("change", live); $("sw").addEventListener("click", live);

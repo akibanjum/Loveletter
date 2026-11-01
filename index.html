@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,600&family=DM+Sans:wght@400;500;700&family=Hind+Siliguri:wght@400;500;600&family=Noto+Serif+Bengali:wght@500;700&family=Pinyon+Script&family=Noto+Naskh+Arabic:wght@500;700&family=Noto+Serif+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Galada&family=Atma:wght@500;700&family=Caveat:wght@500;700&family=Nunito:wght@500;700&family=Baloo+Da+2:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
 :root{--a:#ff7eb3;--a2:#e5195f;--on:#fff;--s1:#060a26;--s2:#1b1156;--tx:#f4f0ff;--tx2:rgba(255,255,255,.65);--line:rgba(255,255,255,.18);--fill:rgba(255,255,255,.08);--fld:rgba(0,0,0,.35);--glass:rgba(10,8,38,.62);--ov:rgba(5,4,20,.88);--err:#ffb3a7;--serif:"Cormorant Garamond","Noto Serif Bengali","Noto Serif Devanagari","Noto Naskh Arabic",Georgia,serif;--script:"Pinyon Script","Noto Serif Bengali","Noto Serif Devanagari","Noto Naskh Arabic",Georgia,serif;--sans:"DM Sans","Hind Siliguri","Noto Naskh Arabic",system-ui,sans-serif}
@@ -133,6 +134,10 @@ h1,h2{font-family:var(--serif);font-weight:600;font-style:italic;color:var(--tx)
 [data-t=ivory]{--a:#b5832e;--a2:#8a5f1a;--on:#fff;--s1:#fffdf6;--s2:#f1e6c8;--tx:rgb(58,44,20);--tx2:rgba(58,44,20,.72);--line:rgba(58,44,20,.2);--fill:rgba(58,44,20,.06);--fld:rgba(255,255,255,.75);--glass:rgba(255,255,255,.66);--ov:rgba(255,253,246,.92);--err:#b3261e}
 [data-t=ivory] .moon{display:none}
 [data-p=rose] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.7),transparent 55%),#ffe3ec;box-shadow:0 26px 60px rgba(0,0,0,.5),inset 0 0 70px rgba(200,60,110,.22)}
+[data-p=lav] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.7),transparent 55%),#ece3ff;box-shadow:0 26px 60px rgba(0,0,0,.5),inset 0 0 70px rgba(130,90,220,.2)}
+[data-p=mint] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.7),transparent 55%),#dff7ea;box-shadow:0 26px 60px rgba(0,0,0,.5),inset 0 0 70px rgba(40,160,110,.2)}
+[data-p=sky] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.7),transparent 55%),#e0f0ff;box-shadow:0 26px 60px rgba(0,0,0,.5),inset 0 0 70px rgba(60,130,220,.2)}
+[data-p=gold] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.6),transparent 55%),#fff0c4;box-shadow:0 26px 60px rgba(0,0,0,.5),inset 0 0 70px rgba(210,150,30,.28)}
 [data-p=plain] .paper{background:#fffdf8;box-shadow:0 26px 60px rgba(0,0,0,.5)}
 [data-p=dark] .paper{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.08),transparent 55%),#1b1830;color:#f1ead8;box-shadow:0 26px 60px rgba(0,0,0,.6),inset 0 0 60px rgba(0,0,0,.5)}
 [data-p=dark] .paper:before{border-color:rgba(255,220,160,.4)}
@@ -141,6 +146,8 @@ h1,h2{font-family:var(--serif);font-weight:600;font-style:italic;color:var(--tx)
 [data-p=dark] .step.paper p.t{color:#cfc6b0}
 .msg{font-size:calc(clamp(20px,4.8vw,24px)*var(--fs,1));font-family:var(--mf,var(--serif))}
 .paper .msg{font-size:calc(clamp(18px,4.4vw,22px)*var(--fs,1))}
+html[data-f] .msg,html[data-f] .dear,html[data-f] .signoff,html[data-f] .signoff b,html[data-f] #s0 h1,html[data-f] .stage h2,html[data-f] .rs button,html[data-f] .rs div,html[data-f] .win p.f,html[data-f] .sig{font-family:var(--mf)!important}
+.qr{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.qr button{padding:9px 14px;border-radius:999px;background:var(--fill);border:1px solid var(--a);font-weight:600;color:var(--tx)}
 .rs div{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;background:color-mix(in srgb,var(--a) 14%,transparent);border:1px solid var(--a);font:500 19px/1.35 var(--serif)}
 .rs div i{font-style:normal;color:var(--a);font-size:20px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -158,7 +165,7 @@ iframe{display:block}
 </head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas><div class="moon" aria-hidden="true"></div>
-<div class="tools hidden" id="tools" role="group" aria-label="Reading options"><button id="fm" aria-label="Smaller text">A−</button><button id="fp" aria-label="Larger text">A+</button><button id="ff" aria-label="Change font style">Aa</button><button id="fa" class="hidden" aria-label="Show or hide music player">🎵</button></div>
+<div class="tools hidden" id="tools" role="group" aria-label="Reading options"><button id="fm" aria-label="Smaller text">A−</button><button id="fp" aria-label="Larger text">A+</button><button id="ff" aria-label="Change font style">Aa</button><button id="fo" class="hidden" aria-label="Music on or off" aria-pressed="true">🔊</button><button id="fa" class="hidden" aria-label="Show or hide music player">🎵</button></div>
 <div class="hidden" id="mp"></div>
 
 <main class="glass gen" id="gen">
@@ -170,28 +177,29 @@ iframe{display:block}
   <div class="field"><span>Language of the letter</span><select id="lang"><option value="en">English</option><option value="bn">বাংলা (Bangla)</option><option value="bl">Banglish (Bangla in English letters)</option><option value="hi">हिन्दी (Hindi)</option><option value="ur">اردو (Urdu)</option><option value="ar">العربية (Arabic)</option></select></div>
   <span class="lbl">Theme</span>
   <div class="sw" id="sw"></div>
-  <div class="row"><label class="field"><span>Paper style</span><select id="paper"><option value="classic">Classic parchment</option><option value="rose">Rose</option><option value="plain">Plain white</option><option value="dark">Midnight</option></select></label><label class="field"><span>Falling effect</span><select id="eff"><option value="auto">Match theme</option><option value="petals">Petals</option><option value="hearts">Hearts</option><option value="snow">Snow</option><option value="none">None</option></select></label></div>
+  <div class="row"><label class="field"><span>Paper style</span><select id="paper"><option value="classic">Classic parchment</option><option value="rose">Rose</option><option value="plain">Plain white</option><option value="dark">Midnight</option><option value="lav">Lavender</option><option value="mint">Mint</option><option value="sky">Sky blue</option><option value="gold">Golden</option></select></label><label class="field"><span>Falling effect</span><select id="eff"><option value="auto">Match theme</option><option value="petals">Petals</option><option value="hearts">Hearts</option><option value="snow">Snow</option><option value="butterflies">Butterflies 🦋</option><option value="roses">Roses 🌹</option><option value="flowers">Flowers 🌼</option><option value="stars">Stars ⭐</option><option value="sparkles">Sparkles ✨</option><option value="leaves">Leaves 🍃</option><option value="bubbles">Bubbles 🫧</option><option value="confetti">Confetti 🎉</option><option value="none">None</option></select></label></div>
   <label class="field"><span>The question</span><input id="q" placeholder="Will you be mine forever? 💍"></label>
   <label class="field"><span>Your message (empty = default)</span><textarea id="msg" placeholder="Write from the heart…"></textarea></label>
-  <label class="field"><span>Reasons I love you (optional)</span><textarea id="rs" placeholder="One reason per line"></textarea><small>Write as many as you like (up to 30). Each time they touch a card, a random reason appears.</small></label>
+  <label class="field"><span>Reasons I love you (optional)</span><textarea id="rs" placeholder="One reason per line"></textarea><small>Leave empty and 5 random reasons from our 100 built-in ones are shown. Or write your own (up to 30): 5 random ones are shown.</small></label>
   <div class="field"><span>Photos (optional, up to 8)</span><input id="ph" type="file" accept="image/*" multiple><div id="gl"></div><textarea id="gcap" placeholder="Captions, one per line, same order as the photos"></textarea><small id="upS" role="status">Photos are uploaded to your Cloudinary account.</small></div>
-  <div class="field"><span>Song</span><div class="btns mrow"><button type="button" class="btn ghost" id="mSp">🟢 Spotify</button><button type="button" class="btn ghost" id="mYt">▶️ YouTube</button></div><small id="muS" role="status"></small>
+  <div class="field"><span>Song</span><div class="btns mrow"><button type="button" class="btn ghost" id="mSp"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="vertical-align:-3px;margin-right:6px"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M5.5 9.2c4.3-1.2 9-.9 12.9 1.3M6.3 12.6c3.6-1 7.3-.7 10.4 1.1M7.2 15.7c2.9-.8 5.6-.5 8.1.9" stroke="#000" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>Spotify</button><button type="button" class="btn ghost" id="mYt"><svg viewBox="0 0 24 17" width="22" height="16" aria-hidden="true" style="vertical-align:-3px;margin-right:6px"><rect width="24" height="17" rx="4.5" fill="#FF0000"/><path d="M9.6 4.8v7.4L16 8.5z" fill="#fff"/></svg>YouTube</button></div><small id="muS" role="status"></small>
     <div class="btns mrow" style="margin-top:8px"><button type="button" class="btn ghost" id="mPaste">📋 Paste copied link</button><button type="button" class="btn ghost" id="mDef">Default song</button><button type="button" class="btn ghost" id="mNone">No song</button></div>
     <input id="mu" type="url" inputmode="url" placeholder="…or paste a Spotify / YouTube link here" style="margin-top:8px"><small>Pick a song on Spotify or YouTube, tap Share → Copy link, then come back here. The link is picked up automatically (or tap “Paste copied link”).</small></div>
-  <label class="field"><span>My promises (optional)</span><textarea id="pr" placeholder="One promise per line"></textarea><small>Up to 12. They appear one by one on their own page.</small></label>
-  <label class="field"><span>Mini quiz (optional)</span><textarea id="zs" placeholder="One question per line:&#10;Where did we first meet? | At school | Online | At a party"></textarea><small>Format: question | right answer | wrong answer | wrong answer. Add up to 12; 4 random ones are asked.</small></label>
+  <label class="field"><span>My promises (optional)</span><textarea id="pr" placeholder="One promise per line"></textarea><small>Leave empty to use our default promises. Or write your own (up to 12).</small></label>
+  <label class="field"><span>Mini quiz (optional)</span><textarea id="zs" placeholder="One question per line:&#10;Where did we first meet? | At school | Online | At a party"></textarea><small>Leave empty to use 4 default quiz questions. Or write your own: question | right answer | wrong answer | wrong answer (up to 12; 4 random ones are asked).</small></label>
   <div class="field"><span>Save the date (optional)</span><div class="row"><input id="d" type="date" aria-label="Date"><input id="dt" placeholder="Title e.g. Our first date"></div></div>
   <label class="field"><span><input id="nt" type="checkbox" style="width:auto;margin-right:8px">Show a button so they can tell me they opened it</span></label>
   <p class="err" id="err" role="alert"></p>
   <button class="btn ghost" id="lp" type="button">📱 Live preview</button><div class="hidden" id="pvw" style="margin:12px 0"><iframe id="pvf" title="Live preview" style="width:100%;height:520px;border:1px solid var(--line);border-radius:18px;background:#000"></iframe></div>
   <button class="btn" id="make">Create my link</button>
   
-  <div class="result hidden" id="result"><input id="url" readonly aria-label="Your link"><small id="len" style="display:block;margin:-4px 0 10px;color:var(--tx2)"></small><div class="btns"><button class="btn" id="copy">Copy link</button><a class="btn ghost" id="preview" target="_blank" rel="noopener">Open</a></div><button class="btn ghost" id="short" type="button">Make link shorter</button><small id="shortNote" style="display:block;margin-top:6px;color:var(--tx2)">Uses the free is.gd service, so your link is sent to them to be shortened.</small></div>
+  <div class="result hidden" id="result"><input id="url" readonly aria-label="Your link"><small id="len" style="display:block;margin:-4px 0 10px;color:var(--tx2)"></small><div class="btns"><button class="btn" id="copy">Copy link</button><a class="btn ghost" id="preview" target="_blank" rel="noopener">Open</a></div>
+  <div class="field" style="margin-top:12px"><span>Send it on WhatsApp (their number is optional)</span><div class="row"><select id="cc2" aria-label="Country code"></select><input id="wa2" type="tel" inputmode="tel" placeholder="1700000000"></div></div><button class="btn" id="shareWa" type="button" style="background:#1fb860;color:#fff">Send on WhatsApp</button><button class="btn ghost" id="short" type="button">Make link shorter</button><small id="shortNote" style="display:block;margin-top:6px;color:var(--tx2)">Uses the free is.gd service, so your link is sent to them to be shortened.</small></div>
 </main>
 
 <main class="stage hidden" id="stage">
   <section class="glass paper step on" id="s0"><div class="env"><div class="env-back"></div><div class="env-paper"></div><div class="env-front"></div><div class="env-flap"></div><div class="seal">❤</div></div><h1 id="hello"></h1><div class="orn"><i></i><b>❦</b><i></i></div><p class="t" id="intro"></p><button class="main" id="open"></button><button class="main ghost hidden" id="tell" type="button"></button></section>
-  <section class="glass paper step" id="s1"><p class="dear" id="dear"></p><p class="msg"><span class="sr" id="srmsg"></span><span id="typed" aria-hidden="true"></span><span class="caret" id="caret" aria-hidden="true"></span><span id="rest" aria-hidden="true" style="visibility:hidden"></span></p><p class="signoff later" id="signoff"></p><button class="main later nocap" id="c1"></button><button class="main ghost later nocap" id="dl" type="button"></button></section>
+  <section class="glass paper step" id="s1"><p class="dear" id="dear"></p><p class="msg"><span class="sr" id="srmsg"></span><span id="typed" aria-hidden="true"></span><span class="caret" id="caret" aria-hidden="true"></span><span id="rest" aria-hidden="true" style="visibility:hidden"></span></p><p class="signoff later" id="signoff"></p><button class="main later nocap" id="c1"></button></section>
   <section class="glass step" id="s2"><h2 id="whyT"></h2><p class="t" id="whyH"></p><div class="rs" id="rs2" aria-live="polite"></div><button class="main later" id="c2"></button></section>
   <section class="glass step" id="s5"><h2 id="prT"></h2><div class="rs" id="prL"></div><button class="main later" id="c3"></button></section>
   <section class="glass step" id="s6"><h2 id="gT"></h2><figure class="gal"><img id="gi" alt=""><figcaption id="gc"></figcaption></figure><div class="btns"><button class="btn ghost" id="gp" aria-label="Previous photo">‹</button><button class="btn ghost" id="gn" aria-label="Next photo">›</button></div><button class="main later" id="c4"></button></section>
@@ -203,7 +211,7 @@ iframe{display:block}
   <div class="big">💖</div><h2 id="winH"></h2><p class="f" id="winT" aria-hidden="true"></p><p class="sr" id="srw"></p>
   <div class="later" id="after">
     <div class="date hidden" id="date"><div class="btns"><button class="btn" id="ics"></button><a class="btn ghost" id="gcal" target="_blank" rel="noopener"></a></div></div>
-    <div class="reply"><textarea id="reTxt"></textarea><button class="wa" id="reBtn"></button></div>
+    <div class="reply"><div class="qr" id="qr"></div><textarea id="reTxt"></textarea><button class="wa" id="reBtn"></button></div>
     <p class="sig" id="sig"></p>
   </div>
 </div></section>
@@ -256,6 +264,16 @@ L.ar = { hey: n => `إلى ${n}،`, intro: "ترك أحدهم لك رسالة ب
   pr: "وعودي", tell: "💌 أخبرهم أنك فتحت الرسالة", opened: "فتحتُ رسالتك 💌", dl: "⬇ احفظ الرسالة كصورة" };
 
 L.en.gal = "Our moments"; L.bn.gal = "আমাদের মুহূর্ত"; L.bl.gal = "Amader muhurto"; L.hi.gal = "हमारे पल"; L.ur.gal = "ہمارے لمحے"; L.ar.gal = "لحظاتنا";
+/* ---------- built-in defaults (used when the sender leaves a section empty, so the link stays short) ---------- */
+const DEF = {
+ en: { r: "The way you smile|Your laugh that fills the room|How you care about everyone|Your kind heart|The way you say my name|How safe I feel with you|Your beautiful eyes|You make ordinary days special|You believe in me|Your warm hugs|The silly jokes you tell|How you listen to me|You never give up|Your honest heart|The sparkle in your eyes when you’re happy|You make me want to be better|Your gentle voice|You understand me without words|You light up my worst days|Your cute little habits|The way you look at me|You cheer me up so easily|Your patience with me|How you dream big|You stay kind even when it’s hard|Your sweet good morning texts|The way you laugh at your own jokes|You make me feel at home|Your strength|You are my best friend|The way you hold my hand|You make silence feel peaceful|You celebrate my little wins|Your beautiful mind|How you love your family|Your crazy dance moves|You forgive me so easily|The warmth in your voice|You’re my favorite notification|You make me smile for no reason|Your cute sleepy face|The way you care about little things|You make every plan more fun|Your wonderful sense of humor|You are always my first thought|How you handle hard days|The comfort of your presence|You see the good in everyone|Your lovely little surprises|You make my heart race|The way you tease me|You are so thoughtful|Your amazing courage|How you inspire me|Your adorable dimples|You are my peace|The way you say “I’m here”|You never judge me|Your sweet voice notes|You make food taste better when we share it|Your hugs that fix everything|You are so real and genuine|The way you get excited about small things|Our late-night talks|You make me feel truly seen|Your beautiful soul|How you love without conditions|You make me brave|You are my favorite person to talk to|The way you hum when you’re happy|Your protective heart|You turn problems into smiles|You are my sunshine|Your gorgeous smile in photos|The way you trust me|You make me laugh until I cry|Your gentle touch|You are my home|You are always so sincere|Your cute stubborn side|You make me feel like enough|The way you care about my health|You’re my favorite adventure|Your cozy cuddles|You make time fly|You bring out my best self|You are so beautifully you|Your warm and loving heart|The way you remember little details about me|You make me believe in forever|Your sweet and shy smile|You are my calm in every storm|You are my greatest blessing|The way you make me feel special every day|Your lovely, caring nature|You are the answer to my prayers|Because loving you feels so easy|Because you are you|Because my heart chose you|Because with you, forever feels too short".split("|"),
+  pr: ["I will always be honest with you", "I will hold your hand through good times and bad", "I will listen whenever you need to talk", "I will make you smile every single day", "I will love you today, tomorrow and always"],
+  z: [["What do I think about the most?", "You ❤️", "Food 🍔", "Sleep 😴"], ["What is my favorite thing in the whole world?", "Your smile", "My phone 📱", "Biryani 🍛"], ["How long will I love you?", "Forever and always ♾️", "Until Monday 😜", "Until my phone dies 🔋"], ["Who is the most special person in my life?", "You, only you 💖", "My pillow 🛏️", "My phone 📱"]] },
+ bn: { pr: ["সবসময় তোমার সাথে সৎ থাকব", "সুখে-দুঃখে তোমার হাত ধরে থাকব", "তুমি কথা বলতে চাইলে মন দিয়ে শুনব", "প্রতিদিন তোমাকে হাসাব", "আজ, কাল আর সবসময় তোমাকে ভালোবাসব"],
+  z: [["আমি সবচেয়ে বেশি কী নিয়ে ভাবি?", "তোমাকে নিয়ে ❤️", "খাবার 🍔", "ঘুম 😴"], ["পুরো দুনিয়ায় আমার প্রিয় জিনিস কী?", "তোমার হাসি", "আমার ফোন 📱", "বিরিয়ানি 🍛"], ["আমি তোমাকে কতদিন ভালোবাসব?", "চিরকাল ♾️", "সোমবার পর্যন্ত 😜", "ফোনের চার্জ শেষ না হওয়া পর্যন্ত 🔋"], ["আমার জীবনে সবচেয়ে স্পেশাল মানুষ কে?", "শুধু তুমি 💖", "আমার বালিশ 🛏️", "আমার ফোন 📱"]] },
+ bl: { pr: ["Shobshomoy tomar shathe shotti thakbo", "Shukhe-dukkhe tomar hat dhore thakbo", "Tumi kotha bolte chaile mon diye shunbo", "Protidin tomake hashabo", "Aj, kal ar shobshomoy tomake bhalobashbo"],
+  z: [["Ami shobcheye beshi ki niye bhabi?", "Tomake niye ❤️", "Khabar 🍔", "Ghum 😴"], ["Poro duniyay amar priyo jinish ki?", "Tomar hashi", "Amar phone 📱", "Biryani 🍛"], ["Ami tomake koto din bhalobashbo?", "Chirokal ♾️", "Shombar porjonto 😜", "Phoner charge shesh na howa porjonto 🔋"], ["Amar jibone shobcheye special manush ke?", "Shudhu tumi 💖", "Amar balish 🛏️", "Amar phone 📱"]] }
+};
 /* ---------- animated sky (changes with the theme) ---------- */
 (() => {
   const c = $("sky"), x = c.getContext("2d"), rnd = Math.random; let W, H, R, S = [], P = [], sh = null;
@@ -263,10 +281,14 @@ L.en.gal = "Our moments"; L.bn.gal = "আমাদের মুহূর্ত";
     S = Array.from({ length: Math.round(innerWidth * innerHeight / 7000) }, () => ({ x: rnd() * W, y: rnd() * H, r: (rnd() * 1.3 + .3) * R, p: rnd() * 6.3, s: .6 + rnd() * 1.6 }));
     P = Array.from({ length: 60 }, () => ({ x: rnd() * W, y: rnd() * H, v: (.3 + rnd()) * R, w: rnd() * 6.3, z: (5 + rnd() * 7) * R })); };
   const heart = (cx, cy, k) => { x.beginPath(); x.moveTo(cx, cy + k * .35); x.bezierCurveTo(cx - k * .9, cy - k * .2, cx - k * .5, cy - k * .9, cx, cy - k * .4); x.bezierCurveTo(cx + k * .5, cy - k * .9, cx + k * .9, cy - k * .2, cx, cy + k * .35); x.fill(); };
+  const EM = { butterflies: "🦋", roses: "🌹", flowers: "🌼", stars: "⭐", sparkles: "✨", leaves: "🍃" }, CF = ["#ff7eb3", "#ffd166", "#6bb8ff", "#8be0b8", "#c9a8ff"];
   const fall = (e, t, mv) => { if (e === "none") return; P.forEach((p, i) => { p.y += (e === "snow" ? .5 : 1) * p.v * mv; p.x += Math.sin(p.w + t / 1500) * .6 * R * mv; if (p.y > H + 20) { p.y = -20; p.x = rnd() * W; }
     x.save(); x.translate(p.x, p.y); x.globalAlpha = .85;
     if (e === "hearts") { x.fillStyle = i % 2 ? "rgba(255,105,150,.85)" : "rgba(255,165,195,.85)"; heart(0, 0, p.z * 1.6); }
     else if (e === "snow") { x.fillStyle = "#fff"; x.strokeStyle = "rgba(120,160,220,.6)"; x.beginPath(); x.arc(0, 0, p.z * .3, 0, 6.3); x.fill(); x.stroke(); }
+    else if (EM[e]) { x.rotate(Math.sin(p.w + t / 900) * .5 * mv); x.font = `${p.z * 2.2}px serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(EM[e], 0, 0); }
+    else if (e === "bubbles") { x.globalAlpha = .7; x.strokeStyle = "rgba(255,255,255,.85)"; x.fillStyle = "rgba(255,255,255,.12)"; x.lineWidth = R; x.beginPath(); x.arc(0, 0, p.z * .9, 0, 6.3); x.fill(); x.stroke(); }
+    else if (e === "confetti") { x.rotate(p.w * 3 + t / 400 * mv); x.fillStyle = CF[i % 5]; x.fillRect(-p.z * .4, -p.z * .2, p.z * .8, p.z * .4); }
     else { x.rotate(p.w + t / 1200 * mv); x.fillStyle = "rgba(255,140,180,.8)"; x.beginPath(); x.ellipse(0, 0, p.z, p.z * .55, 0, 0, 6.3); x.fill(); }
     x.restore(); }); };
   addEventListener("resize", fit); fit();
@@ -361,6 +383,7 @@ $("make").onclick = async () => {
   $("err").textContent = "";
   const link = base() + "?" + await pack(c);
   $("len").textContent = `Link length: ${link.length} characters` + (link.length > 2000 ? ". Very long: some apps may cut it. Try a shorter message or a link shortener." : "");
+  if (!$("cc2").options.length) { $("cc2").innerHTML = $("cc").innerHTML; $("cc2").value = $("cc").value; }
   $("url").value = link; $("preview").href = link; $("result").classList.remove("hidden"); $("copy").textContent = "Copy link";
   $("short").classList.remove("hidden"); $("shortNote").classList.remove("hidden"); $("short").disabled = false; $("short").textContent = "Make link shorter";
 };
@@ -373,6 +396,10 @@ $("short").onclick = async () => {
     $("len").textContent = `Short link: ${j.shorturl.length} characters`; b.classList.add("hidden"); $("shortNote").classList.add("hidden");
   } catch { b.disabled = false; b.textContent = "Make link shorter"; $("len").textContent = "Couldn’t shorten it right now (needs internet). The long link above still works."; }
 };
+$("shareWa").onclick = () => { const n = $("to").value.trim() || "", u = $("url").value, l = $("lang").value;
+  const M = { bn: `প্রিয় ${n} 💌 তোমার জন্য একটা বিশেষ কিছু বানিয়েছি। এখানে খোলো: ${u}`, bl: `Priyo ${n} 💌 Tomar jonno ekta special kichu baniyechi. Ekhane kholo: ${u}` };
+  const t = M[l] || `Hey ${n} 💌 I made something special just for you. Open it here: ${u}`, num = $("cc2").value + $("wa2").value.replace(/\D/g, "").replace(/^0+/, "");
+  open(`https://wa.me/${$("wa2").value.replace(/\D/g, "") ? num : ""}?text=${encodeURIComponent(t)}`, "_blank", "noopener"); };
 $("copy").onclick = async () => { const u = $("url"); u.select(); try { await navigator.clipboard.writeText(u.value); } catch { document.execCommand("copy"); } $("copy").textContent = "Copied ✓"; };
 
 const needCloud = () => { if (CLOUD_NAME && UPLOAD_PRESET) return false; $("upS").textContent = "Cloudinary is not set up yet. Fill CLOUD_NAME and UPLOAD_PRESET at the top of the script."; return true; };
@@ -407,44 +434,47 @@ const SNAP = { st: $("stage").innerHTML, ov: $("overlay").innerHTML };
 let timer;
 function startLetter(c) {
   const T = { ...L.en, ...L[c.l] }, doc = document.documentElement; c.r = c.r || []; c.z = c.z || []; c.pr = c.pr || []; c.g = c.g || [];
+  const D = { ...DEF.en, ...DEF[c.l] }; if (!c.r.length) c.r = D.r; if (!c.z.length) c.z = D.z; if (!c.pr.length) c.pr = D.pr;
   doc.lang = c.l === "bl" ? "en" : (c.l || "en"); doc.dir = c.l === "ur" || c.l === "ar" ? "rtl" : "ltr"; doc.dataset.p = c.p || "classic"; doc.dataset.e = c.e || "auto"; doc.dataset.t = THEMES.some(t => t[0] === c.t) ? c.t : "night";
   $("gen").classList.add("hidden"); $("stage").classList.remove("hidden");
   $("hello").textContent = T.hey(c.to); $("intro").textContent = c.from ? T.from(c.from) + " ✦ " + T.intro : T.intro;
   $("dear").textContent = T.hey(c.to); $("signoff").textContent = T.sig; if (c.from) { const sb = document.createElement("b"); sb.textContent = c.from; $("signoff").append(sb); }
-  $("open").textContent = T.open; $("c1").textContent = $("c2").textContent = $("c3").textContent = $("c4").textContent = T.cont; $("gT").textContent = T.gal; $("prT").textContent = T.pr; $("dl").textContent = T.dl; $("tell").textContent = T.tell;
+  $("open").textContent = T.open; $("c1").textContent = $("c2").textContent = $("c3").textContent = $("c4").textContent = T.cont; $("gT").textContent = T.gal; $("prT").textContent = T.pr; $("tell").textContent = T.tell;
   $("whyT").textContent = T.why; $("whyH").textContent = T.whyH; $("ask").textContent = c.q || T.dq;
   $("yes").textContent = T.yes; $("no").textContent = T.no;
   $("winH").textContent = T.win; $("reTxt").placeholder = T.ph; $("reBtn").textContent = T.wa; $("sig").textContent = T.sig;
   document.title = `${c.to} ❤️`;
-  let fs = 1, fi = 0; const FM = ["var(--serif)", "var(--sans)", "var(--script)"];
-  doc.style.removeProperty("--fs"); doc.style.removeProperty("--mf"); $("tools").classList.remove("hidden");
-  $("fm").onclick = () => doc.style.setProperty("--fs", fs = Math.max(.8, fs - .1)); $("fp").onclick = () => doc.style.setProperty("--fs", fs = Math.min(1.6, fs + .1)); $("ff").onclick = () => doc.style.setProperty("--mf", FM[fi = (fi + 1) % 3]);
+  let fs = 1, fi = 0; const XT = ",\"Noto Naskh Arabic\",\"Noto Serif Devanagari\"", FM = [null, '"DM Sans","Hind Siliguri"' + XT + ",system-ui,sans-serif", '"Pinyon Script","Galada"' + XT + ',"Snell Roundhand","Brush Script MT",cursive', '"Caveat","Atma"' + XT + ',"Bradley Hand","Segoe Print","Comic Sans MS",cursive', '"Nunito","Baloo Da 2"' + XT + ',"Arial Rounded MT Bold","Trebuchet MS",sans-serif', '"Cormorant Garamond","Noto Serif Bengali"' + XT + ",Georgia,serif"];
+  doc.style.removeProperty("--fs"); doc.style.removeProperty("--mf"); doc.removeAttribute("data-f"); $("ff").style.fontFamily = ""; $("tools").classList.remove("hidden");
+  $("fm").onclick = () => doc.style.setProperty("--fs", fs = Math.max(.8, fs - .1)); $("fp").onclick = () => doc.style.setProperty("--fs", fs = Math.min(1.6, fs + .1)); $("ff").onclick = () => { fi = (fi + 1) % FM.length; if (fi) { doc.style.setProperty("--mf", FM[fi]); doc.dataset.f = "1"; } else { doc.style.removeProperty("--mf"); doc.removeAttribute("data-f"); } $("ff").style.fontFamily = fi ? FM[fi] : ""; const nm = ["Default", "Clean", "Script", "Handwritten", "Rounded", "Classic"][fi]; let tt = $("ftoast"); if (!tt) { tt = document.createElement("div"); tt.id = "ftoast"; tt.style.cssText = "position:fixed;left:10px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:45;padding:6px 14px;border-radius:999px;font:600 14px var(--sans);background:var(--glass);color:var(--tx);border:1px solid var(--line);backdrop-filter:blur(8px);transition:opacity .3s"; document.body.append(tt); } tt.textContent = "Font: " + nm; tt.style.opacity = 1; clearTimeout(tt._t); tt._t = setTimeout(() => tt.style.opacity = 0, 1400); };
   $("tell").classList.toggle("hidden", !c.n);
+  let mf = null, msrc = "", mk = "", mon = true;
+  const setMus = on => { mon = on; $("fo").textContent = on ? "🔊" : "🔇"; $("fo").setAttribute("aria-pressed", on); };
+  $("fo").classList.add("hidden"); setMus(true);
+  $("fo").onclick = () => { if (!mf) return; const on = !mon; setMus(on);
+    if (mk === "y") mf.contentWindow.postMessage(JSON.stringify({ event: "command", func: on ? "playVideo" : "pauseVideo", args: [] }), "*");
+    else mf.src = on ? msrc : "about:blank"; };
   $("fa").classList.add("hidden"); $("mp").classList.add("hidden"); $("mp").innerHTML = ""; $("fa").onclick = () => $("mp").classList.toggle("hidden");
   function playMusic() { const k = c.a.split(":"); let src, h = 152;
-    if (k[0] === "y") { src = `https://www.youtube.com/embed/${k[1]}?autoplay=1&loop=1&playlist=${k[1]}&playsinline=1`; h = 169; }
+    if (k[0] === "y") { src = `https://www.youtube.com/embed/${k[1]}?autoplay=1&loop=1&playlist=${k[1]}&playsinline=1&enablejsapi=1`; h = 169; }
     else if (k[0] === "s") { src = `https://open.spotify.com/embed/${k[1]}`; h = /^track/.test(k[1]) ? 152 : 232; }
     else return;
-    const f = document.createElement("iframe"); f.src = src; f.height = h; f.title = "Music"; f.allow = "autoplay; encrypted-media"; f.style.cssText = "width:100%;border:0;border-radius:12px"; $("mp").append(f); $("mp").classList.remove("hidden"); $("fa").classList.remove("hidden"); }
+    const f = document.createElement("iframe"); f.src = src; f.height = h; f.title = "Music"; f.allow = "autoplay; encrypted-media"; f.style.cssText = "width:100%;border:0;border-radius:12px"; $("mp").append(f); $("mp").classList.remove("hidden"); $("fa").classList.remove("hidden"); mf = f; msrc = src; mk = k[0]; setMus(true); $("fo").classList.remove("hidden"); }
   clearInterval(timer); timer = setInterval(() => fx(Math.random() < .5 ? "✨" : "💖", 12 + Math.random() * 10), 1600);
 
   const order = ["s0", "s1", c.r.length && "s2", c.pr.length && "s5", c.g.length && "s6", c.z.length && "s3", "s4"].filter(Boolean);
   let at = 0;
   const go = () => { at++; document.querySelectorAll(".step").forEach(s => s.classList.toggle("on", s.id === order[at])); if (order[at] === "s3") quiz(); if (order[at] === "s5") promises(); if (order[at] === "s6") gallery(); scrollTo(0, 0); const h = $(order[at]).querySelector("h1,h2,.dear"); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } };
-  $("open").onclick = () => { $("open").disabled = true; $("srmsg").textContent = c.m || T.dm; if (c.a) playMusic(); $("s0").classList.add("opening"); setTimeout(() => { go(); typeInto($("typed"), c.m || T.dm, 38, () => { $("caret").remove(); $("signoff").classList.add("show"); $("c1").classList.add("show"); $("dl").classList.add("show"); }); }, reduce ? 0 : 750); };
+  $("open").onclick = () => { $("open").disabled = true; $("srmsg").textContent = c.m || T.dm; if (c.a) playMusic(); $("s0").classList.add("opening"); setTimeout(() => { go(); typeInto($("typed"), c.m || T.dm, 38, () => { $("caret").remove(); $("signoff").classList.add("show"); $("c1").classList.add("show"); }); }, reduce ? 0 : 750); };
   $("c1").onclick = go; $("c2").onclick = go; $("c3").onclick = go;
   let gi = 0; const gShow = () => { const cap = (c.gc && c.gc[gi]) || ""; $("gi").src = gUrl(c.g[gi], "w_900"); $("gi").alt = cap || `${gi + 1} / ${c.g.length}`; $("gc").textContent = cap; };
   $("gp").onclick = () => { gi = (gi + c.g.length - 1) % c.g.length; gShow(); }; $("gn").onclick = () => { gi = (gi + 1) % c.g.length; gShow(); }; $("c4").onclick = go;
   function gallery() { gi = 0; gShow(); $("gp").classList.toggle("hidden", c.g.length < 2); $("gn").classList.toggle("hidden", c.g.length < 2); $("c4").classList.add("show"); }
   function promises() { $("prL").innerHTML = ""; c.pr.forEach((t, i) => { const d = document.createElement("div"); d.style.animation = `rise .6s ${reduce ? 0 : i * .4}s both`; d.innerHTML = "<i>✦</i><span></span>"; d.lastChild.textContent = t; $("prL").append(d); }); setTimeout(() => $("c3").classList.add("show"), reduce ? 0 : c.pr.length * 400 + 300); }
   $("tell").onclick = () => { if (c.demo) { $("tell").textContent = T.demoOnly; return; } open(`https://wa.me/${c.wa}?text=${encodeURIComponent(T.opened)}`, "_blank", "noopener"); };
-  $("dl").onclick = async () => { const b = $("dl"); b.disabled = true; try {
-      if (!window.html2canvas) await new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"; s.onload = ok; s.onerror = no; document.head.append(s); });
-      const cv = await html2canvas($("s1"), { backgroundColor: null, scale: 2, ignoreElements: e => e.classList && e.classList.contains("nocap") });
-      const a = document.createElement("a"); a.href = cv.toDataURL("image/png"); a.download = "my-letter.png"; a.click();
-    } catch { b.textContent = T.dl + " ✗"; } b.disabled = false; };
 
-  let seen = 0; const bag = shuffle(c.r), slots = Math.min(4, bag.length);
+
+  let seen = 0; const bag = shuffle(c.r), slots = Math.min(5, bag.length);
   for (let i = 0; i < slots; i++) {
     const b = document.createElement("button"); b.innerHTML = "<i>✦</i><span></span>"; b.lastChild.textContent = T.tap;
     b.onclick = () => { if (b.classList.contains("seen")) return; b.classList.add("seen"); b.lastChild.textContent = bag.pop(); burst(10); if (++seen === slots) $("c2").classList.add("show"); };
@@ -506,19 +536,22 @@ function startLetter(c) {
     }
     $("srw").textContent = T.fin; $("winH").tabIndex = -1; $("winH").focus({ preventScroll: true }); typeInto($("winT"), T.fin, 40, () => $("after").classList.add("show"));
   };
-  $("reBtn").onclick = () => {
+  const QR = { en: ["I’m in ❤️", "When do we meet?", "Call me 📞"], bn: ["আমি রাজি ❤️", "কবে দেখা করবে?", "কল দাও 📞"], bl: ["Ami raji ❤️", "Dekha korbo kobe?", "Call dao 📞"] };
+  const sendWa = ex => {
     if (c.demo) { $("reBtn").textContent = T.demoOnly; return; }
-    const ex = $("reTxt").value.trim();
-    open(`https://wa.me/${c.wa}?text=${encodeURIComponent(T.sent + (ex ? "\n\n" + ex : ""))}`, "_blank", "noopener");
+    const dl = c.d ? "\n\n📅 " + (c.dt || T.dtt) + ": " + new Date(c.d + "T00:00:00").toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) : "";
+    open(`https://wa.me/${c.wa}?text=${encodeURIComponent(T.sent + (ex ? "\n\n" + ex : "") + dl)}`, "_blank", "noopener");
   };
+  $("qr").innerHTML = ""; (QR[c.l] || QR.en).forEach(t => { const b = document.createElement("button"); b.type = "button"; b.textContent = t; b.onclick = () => sendWa(t); $("qr").append(b); });
+  $("reBtn").onclick = () => sendWa($("reTxt").value.trim());
   if (c.demo) {
     if (c.pv) return; const b = document.createElement("div"); b.className = "banner"; b.innerHTML = 'Demo preview, nothing is sent. <a href="#" id="back">Back to editor</a>'; document.body.append(b);
     $("back").onclick = e => { e.preventDefault(); clearInterval(timer); document.querySelectorAll(".banner,.fx,body > .no").forEach(n => n.remove());
       $("stage").innerHTML = SNAP.st; $("overlay").innerHTML = SNAP.ov; $("overlay").classList.remove("show"); $("stage").classList.add("hidden"); $("gen").classList.remove("hidden");
-      doc.lang = "en"; doc.dir = "ltr"; doc.dataset.t = theme; doc.dataset.p = "classic"; doc.dataset.e = $("eff").value; doc.removeAttribute("style"); $("tools").classList.add("hidden"); document.title = "A little letter for you ❤️"; scrollTo(0, 0); };
+      doc.lang = "en"; doc.dir = "ltr"; doc.dataset.t = theme; doc.dataset.p = "classic"; doc.dataset.e = $("eff").value; doc.removeAttribute("style"); doc.removeAttribute("data-f"); $("tools").classList.add("hidden"); document.title = "A little letter for you ❤️"; scrollTo(0, 0); };
   }
 }
-(async () => { try { const q = new URLSearchParams(location.search), pv = window.__PV, c = pv || await unpack(q); if (c && c.to && c.wa) { if (pv || q.has("pv")) { const T = { ...L.en, ...L[c.l] }; c.demo = c.pv = true; c.r = c.r || []; c.z = c.z || []; if (!c.r.length) c.r = T.sr; if (!c.z.length) c.z = T.sz; } startLetter(c); } } catch (e) { /* invalid link: show generator */ } })();
+(async () => { try { const q = new URLSearchParams(location.search), pv = window.__PV, c = pv || await unpack(q); if (c && c.to && c.wa) { if (pv || q.has("pv")) { const T = { ...L.en, ...L[c.l] }; c.demo = c.pv = true; c.r = c.r || []; c.z = c.z || []; } startLetter(c); } } catch (e) { /* invalid link: show generator */ } })();
 
 /* ---------- helpers ---------- */
 function typeInto(el, text, speed, done) {

@@ -465,7 +465,7 @@ function startLetter(c) {
   const order = ["s0", "s1", c.r.length && "s2", c.pr.length && "s5", c.g.length && "s6", c.z.length && "s3", "s4"].filter(Boolean);
   let at = 0;
   const go = () => { at++; document.querySelectorAll(".step").forEach(s => s.classList.toggle("on", s.id === order[at])); if (order[at] === "s3") quiz(); if (order[at] === "s5") promises(); if (order[at] === "s6") gallery(); scrollTo(0, 0); const h = $(order[at]).querySelector("h1,h2,.dear"); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } };
-  $("open").onclick = () => { $("open").disabled = true; $("srmsg").textContent = c.m || T.dm; if (c.a) playMusic(); $("s0").classList.add("opening"); setTimeout(() => { go(); typeInto($("typed"), c.m || T.dm, 38, () => { $("caret").remove(); $("signoff").classList.add("show"); $("c1").classList.add("show"); }); }, reduce ? 0 : 750); };
+  $("open").onclick = () => { $("open").disabled = true; $("srmsg").textContent = c.m || T.dm; if (c.a && !c.pv) playMusic(); $("s0").classList.add("opening"); setTimeout(() => { go(); typeInto($("typed"), c.m || T.dm, 38, () => { $("caret").remove(); $("signoff").classList.add("show"); $("c1").classList.add("show"); }); }, reduce ? 0 : 750); };
   $("c1").onclick = go; $("c2").onclick = go; $("c3").onclick = go;
   let gi = 0; const gShow = () => { const cap = (c.gc && c.gc[gi]) || ""; $("gi").src = gUrl(c.g[gi], "w_900"); $("gi").alt = cap || `${gi + 1} / ${c.g.length}`; $("gc").textContent = cap; };
   $("gp").onclick = () => { gi = (gi + c.g.length - 1) % c.g.length; gShow(); }; $("gn").onclick = () => { gi = (gi + 1) % c.g.length; gShow(); }; $("c4").onclick = go;
